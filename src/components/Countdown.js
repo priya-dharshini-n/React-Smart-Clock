@@ -69,9 +69,9 @@ class Countdown extends Component {
         return ( <
             div className = "Countdown" >
             <
-            div className = "Countdown-header" > Countdown < /div> <
-            div className = "Countdown-label" > Hours: Minutes: Seconds < /div> <
-            div className = "Countdown-display" >
+            div className = "Countdown-header" > Countdown </div> <
+            div className = "Countdown-label" > Hours : Minutes : Seconds </div> 
+            <div className = "Countdown-display" >
             <
             button onClick = {
                 () => this.adjustTimer("incHours") } > &#8679;</button>
@@ -90,8 +90,7 @@ class Countdown extends Component {
 
 
 
-          <div className= "Countdown-time" > { hours } : { minutes } : { seconds } <
-            /div>
+          <div className= "Countdown-time" > { hours } : { minutes } : { seconds } </div>
 
             <
             button onClick = {
@@ -116,15 +115,13 @@ class Countdown extends Component {
         {timerOn === false && (timerStart === 0 || timerTime === timerStart) && ( <
                 button className = "Button-start"
                 onClick = { this.startTimer } >
-                Start <
-                /button>
+                Start </button>
             )
         } {
             timerOn === true && timerTime >= 1000 && ( <
                 button className = "Button-stop"
                 onClick = { this.stopTimer } >
-                Stop <
-                /button>
+                Stop </button>
             )
         } {
             timerOn === false &&
