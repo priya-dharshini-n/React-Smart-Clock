@@ -8,7 +8,7 @@ class App extends Component {
         return ( <
             div className = "App" >
             <
-            div className = "App-title" > Smart Clock < /div> <
+            div className = "App-title" > Smart Clock </ div> <
             div className = "Timers" >
             <
             Stopwatch / >
@@ -16,11 +16,9 @@ class App extends Component {
             Countdown / >
             <
             Alarm / >
-            <
-            /div> 
+            </ div> 
              
-            < /
-            div >
+            </ div>
         );
     }
 }

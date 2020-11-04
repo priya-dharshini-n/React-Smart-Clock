@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "../App.css";
-
+var i;
 export default class Alarm extends Component {
     constructor() {
       super();
@@ -19,6 +19,8 @@ export default class Alarm extends Component {
       this.interval = setInterval(
         () => this.checkAlarmClock(),
       1000)
+     
+      
   }
   
   componentWillUnmount(){
@@ -38,21 +40,31 @@ export default class Alarm extends Component {
       this.setState({
         alarmTime: inputAlarmTimeModified
       })
+      if (typeof(Storage) !== "undefined" && this.state.alarmTime!==":00"  && this.state.alarmTime!=="") {
+        // Store
+        localStorage.setItem("alarmHistory", JSON.stringify(this.state.alarmTime));
+        var table = document.getElementById("myTab");
+        var row = table.insertRow(i);
+        var cell2 = row.insertCell(0);
+        cell2.innerHTML = localStorage.getItem("alarmHistory");
+
+        i = i + 1;
+    } 
+    else if(this.state.alarmTime ===":00" || this.state.alarmTime==="" ){
+        console.log("Alarm time not set yet!", this.state.alarmTime);
+    }else {
+        this.locStMesg= "Sorry, your browser does not support Web Storage...";
+    }  
   }
-  
+ 
+
   checkAlarmClock(){
-      if(this.state.alarmTime === 'undefined' || !this.state.alarmTime) {
+      if(this.state.alarmTime === 'undefined' || !this.state.alarmTime ||this.state.alarmTime === ":00") {
         this.alarmMessage = "Set your alarm!";
       } else {
         this.alarmMessage = "Your alarm is set for " + this.state.alarmTime + ".";
-        if (typeof(Storage) !== "undefined") {
-          // Store
-          window.localStorage.setItem("alarmHistory", JSON.stringify(this.state.alarmTime));
-  
-      } else {
-          this.locStMesg= "Sorry, your browser does not support Web Storage...";
-      }  
-      
+        
+        
         if(this.state.currentTime === this.state.alarmTime) {
             window.confirm("It's Time!!!!");
         } else {
@@ -61,11 +73,14 @@ export default class Alarm extends Component {
      }   
   }
   
+  
   render() {
       return (
+        
         <React.Fragment>
+          
         <div className = "Alarm" >
-        <div className = "Alarm-header" > Alarm< /div>
+        <div className = "Alarm-header" > Alarm</div >
         <div>
           
           <h2>Current Time: {this.state.currentTime}.
@@ -82,27 +97,22 @@ export default class Alarm extends Component {
         </div>
         
        </div>
-        <AlarmHistory />
+      
+      <div className = "AlarmHistory" >
+     <div className = "Alarm-History-header" > Alarm History</ div >
+     <div id="myDiv">
+     <p align="center">Time</p>
+      <table id="myTab">
+        <tbody align="center"><tr>   
+          </tr>
+        </tbody></table>
+    </div>
+    </div>
         </React.Fragment>
       )
     }
   }
 
   
-  class AlarmHistory extends Component{
-    render() {
-      return (
-    <div className = "AlarmHistory" >
-     <div className = "Alarm-History-header" > Alarm History - Local Storage< /div>
-     <div id="myDiv">
-  <table id="myTab">
-    <tbody><tr>
-        <th>Time</th>
-      </tr>
-    </tbody></table>
-</div>
-
-     </div>
-      )
-    }
-  }
+  
+  
